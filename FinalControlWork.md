@@ -51,23 +51,11 @@
         mysql> create table Animal (
          -> id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(40));
 
-* Создание таблицы "Домашние животные" с внешним ключом, наследника таблицы "Pet":
-
-        mysql> create table Pet (
+* Создание таблицы "Домашние животные" с внешним ключом, наследника таблицы "Pmysql> create table Pet (
         -> id INT PRIMARY KEY AUTO_INCREMENT, class VARCHAR(40),
          -> animal_id INT,
          -> FOREIGN KEY (animal_id) REFERENCES animal(id));
     
 
    
-
-
-mysql> create table PackAnimal (
-    -> id INT PRIMARY KEY AUTO_INCREMENT, class VARCHAR(40),
-    -> animal_id INT,
-    -> FOREIGN KEY (animal_id) REFERENCES animal(id));
-Query OK, 0 rows affected (0.15 sec)
-
- 
-
 
