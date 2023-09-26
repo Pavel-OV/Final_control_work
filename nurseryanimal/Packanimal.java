@@ -3,7 +3,7 @@ package nurseryanimal;
 public class Packanimal extends Animal {
      private String packAnimalView;
 
-    public Packanimal(String name, String command, String birthDate) {
+    public Packanimal(String name, String command, String birthDate, String packAnimalView) {
         super(name, command, birthDate);
         this.packAnimalView = packAnimalView;
        
@@ -16,5 +16,8 @@ public class Packanimal extends Animal {
     public void setPackAnimalView(String packAnimalView) {
         this.packAnimalView = packAnimalView;
     }
+    public void updateCommands(String newCommands) {
+        setCommand(newCommands);
     
+}
 }
