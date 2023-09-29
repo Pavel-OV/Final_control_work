@@ -247,3 +247,89 @@ __Ослы__
 ![Просмотр заполненых таблиц ](pictures/mysql_tables.png "Просмотр заполненых таблиц")
 
 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
+
+        mysql> DELETE FROM camel; 
+
+        mysql> CREATE TABLE horse_donkey AS
+        -> SELECT * FROM horse
+        -> UNION ALL
+        -> SELECT * FROM donkey;
+
+![Просмотр таблицы лошади_ослы  ](pictures/camel.png "Просмотр таблицы лошади_ослы")
+
+11. Создать новую таблицу “молодые животные” в которую попадут все животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью до месяца подсчитать возраст животных в новой таблице
+
+        mysql> CREATE TABLE young_animal AS
+        -> SELECT id, name, command,  date_of_birth,
+        -> TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) AS age_years,
+        -> TIMESTAMPDIFF(MONTH, date_of_birth, CURDATE()) AS age_months,
+        -> "Cобаки" AS class
+        -> FROM dog
+        -> WHERE  date_of_birth > DATE_SUB(CURDATE(), INTERVAL 3 YEAR)
+        -> AND date_of_birth < DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+        -> UNION ALL
+        -> SELECT id, name, command,  date_of_birth,
+        -> TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) AS age_years,
+        -> TIMESTAMPDIFF(MONTH, date_of_birth, CURDATE()) AS age_months,
+        -> "Кошки" AS class
+        -> FROM cat
+        -> WHERE  date_of_birth > DATE_SUB(CURDATE(), INTERVAL 3 YEAR)
+        -> AND date_of_birth < DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+        -> UNION ALL
+        -> SELECT id, name, command,  date_of_birth,
+        -> TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) AS age_years,
+        -> TIMESTAMPDIFF(MONTH, date_of_birth, CURDATE()) AS age_months,
+        -> "Хомяки" AS class
+        -> FROM hamster
+        -> WHERE  date_of_birth > DATE_SUB(CURDATE(), INTERVAL 2 YEAR)
+        -> AND date_of_birth < DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+        -> UNION ALL
+        -> SELECT id, name, command,  date_of_birth,
+        -> TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) AS age_years,
+        -> TIMESTAMPDIFF(MONTH, date_of_birth, CURDATE()) AS age_months,
+        -> "Лошади" AS class
+        -> FROM horse
+        -> WHERE  date_of_birth > DATE_SUB(CURDATE(), INTERVAL 3 YEAR)
+        -> AND date_of_birth < DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+        -> UNION ALL
+        -> SELECT id, name, command,  date_of_birth,
+        -> TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) AS age_years,
+        -> TIMESTAMPDIFF(MONTH, date_of_birth, CURDATE()) AS age_months,
+        -> "Верблюды" AS class
+        -> FROM camel
+        -> WHERE  date_of_birth > DATE_SUB(CURDATE(), INTERVAL 3 YEAR)
+        -> AND date_of_birth < DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+        -> UNION ALL
+        -> SELECT id, name, command,  date_of_birth,
+        -> TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) AS age_years,
+        -> TIMESTAMPDIFF(MONTH, date_of_birth, CURDATE()) AS age_months,
+        -> "Ослы" AS class
+        -> FROM donkey
+        -> WHERE  date_of_birth > DATE_SUB(CURDATE(), INTERVAL 3 YEAR)
+        -> AND date_of_birth < DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+    
+![Просмотр таблицы young_animals  ](pictures/young_animals.png "Просмотр таблицы young_animals")
+
+12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на прошлую принадлежность к старым таблицам.
+
+        mysql> CREATE TABLE joint_animals AS
+        -> SELECT "Cобаки" AS class, id, name, command, date_of_birth
+        -> FROM dog
+        -> UNION
+        -> SELECT "Кошки" as class, id, name, command,  date_of_birth
+        -> FROM cat
+        -> UNION
+        -> SELECT "Хомяки" as class, id, name, command,  date_of_birth
+        -> FROM hamster
+        -> UNION
+        -> SELECT "Лошади" as class, id, name, command,  date_of_birth
+        -> FROM horse
+        -> UNION
+        -> SELECT "Ослы" as class, id, name, command,  date_of_birth
+        -> FROM donkey
+        -> UNION
+        -> SELECT "Верблюды" as class, id, name, command,  date_of_birth
+        -> FROM camel;
+
+![Просмотр  объединёной таблицы](pictures/joint_animals.png "Просмотр объединёной таблицы")
+
