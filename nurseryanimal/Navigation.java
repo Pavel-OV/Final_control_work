@@ -138,20 +138,36 @@ public class Navigation {
         System.out.println("Животное не найдено.");
     }
 
-    public  String checkBirthdayChar( String birthDate) {
+    public String checkBirthdayChar(String birthDate) {
         DateTimeFormatter forma = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate date;
         try {
             date = LocalDate.parse(birthDate, forma);
         } catch (Exception e) {
             System.out.println("Ошибка: не правильно набрали формат даты либо цифры " + birthDate);
-             Scanner sc = new Scanner(System.in);
-            birthDate = sc.nextLine();
+            Scanner sc = new Scanner(System.in);
+            birthDate = checkBirthdayChar(inputRows());
 
         }
 
         return birthDate;
 
+    }
+
+    public String inputRows() {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        
+            if (!input.matches("\\S+")) {
+                 System.out.println("Пустые строки вводить нельзя!");
+
+                // throw new Exception("Пустые строки вводить нельзя!");
+                input = inputRows();
+
+            }
+       
+
+        return input;
     }
 
     public Integer promsc() {
@@ -173,7 +189,7 @@ public class Navigation {
 
     public void navigation() {
 
-        Scanner scanner = new Scanner(System.in,"Cp866");
+        Scanner scanner = new Scanner(System.in, "Cp866");
         boolean exit = false;
 
         while (!exit) {
@@ -193,9 +209,9 @@ public class Navigation {
             switch (choice) {
                 case 1:
                     System.out.print("Введите имя животного: ");
-                    String name = scanner.nextLine();
+                    String name = inputRows();
                     System.out.print("Введите команды для животного: ");
-                    String commands = scanner.nextLine();
+                    String commands = inputRows();
                     System.out.print("Введите дату рождения животного формата - dd.mm.yyyy: ");
                     String birthDate = scanner.nextLine();
                     birthDate = checkBirthdayChar(birthDate);
