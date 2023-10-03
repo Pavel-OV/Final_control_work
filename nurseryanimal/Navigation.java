@@ -172,7 +172,7 @@ public class Navigation {
 
     public Integer promsc() {
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in,"Cp866");
         int number;
         do {
 
@@ -242,14 +242,14 @@ public class Navigation {
 
                 case 3:
                     System.out.print("Введите имя животного: ");
-                    String animalName = scanner.nextLine();
+                    String animalName = inputRows();
                     infoAnimalCommands(animalName);
                     break;
                 case 4:
                     System.out.print("Введите имя животного: ");
-                    String animalName2 = scanner.nextLine();
+                    String animalName2 = inputRows();
                     System.out.print("Введите новые команды для животного: ");
-                    String newCommands = scanner.nextLine();
+                    String newCommands = inputRows();
                     teachAnimalCommands(animalName2, newCommands);
                     break;
                 case 5:
