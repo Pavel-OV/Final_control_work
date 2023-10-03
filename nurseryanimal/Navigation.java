@@ -155,7 +155,7 @@ public class Navigation {
     }
 
     public String inputRows() {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in,"Cp866");
         String input = sc.nextLine();
         
             if (!input.matches("\\S+")) {
